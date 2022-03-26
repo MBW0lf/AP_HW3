@@ -1,14 +1,20 @@
 #include "bst.h"
 
-Node :: Node(int value, Node* left, Node* right)
+BST :: Node :: Node(int _value, Node* _left, Node* _right)
 {
-
+    value =  _value;
+    left = _left;
+    right = _right;
 }
-Node :: Node()
+BST :: Node :: Node()
 {
-
+    value = 0;
+    right = nullptr;
+    left = nullptr;
 }
-Node :: Node(const Node& node)
+BST :: Node :: Node(const Node& node)
 {
-    
+    value = node.value;
+    right = node.right;
+    left = node.left;
 }
