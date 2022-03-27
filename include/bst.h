@@ -14,6 +14,19 @@ public:
 	    Node(int value, Node* left, Node* right);
 	    Node();
 	    Node(const Node& node);
+
+        friend std::ostream& operator<<(std::ostream& os,BST::Node node);
+        friend bool operator<(int _value,BST::Node node);
+        friend bool operator<(BST::Node node,int _value);
+        friend bool operator>(int _value,BST::Node node);
+        friend bool operator>(BST::Node node,int _value);
+        friend bool operator<=(int _value,BST::Node node);
+        friend bool operator<=(BST::Node node,int _value);
+        friend bool operator>=(int _value,BST::Node node);
+        friend bool operator>=(BST::Node node,int _value);
+        friend bool operator==(int _value,BST::Node node);
+        friend bool operator==(BST::Node node,int _value);
+
 	    int value;
 	    Node* left;
 	    Node* right;
@@ -31,5 +44,4 @@ public:
 private:
     Node* root;
 };
-
 #endif //BST_H
