@@ -21,8 +21,8 @@ BST :: Node :: Node(const Node& node)
 std::ostream& operator<<(std::ostream& os,BST::Node node)
 {
     os << "adress of node: " << &node << std::endl;
-    os << "adress of left: " << &node.left << std::endl;
-    os << "adress of right: " << &node.right << std::endl;
+    os << "adress of left: " << node.left << std::endl;
+    os << "adress of right: " << node.right << std::endl;
     os << "value: " << node.value;
     return os;
 }
@@ -85,4 +85,8 @@ bool operator==(BST::Node node,int _value)
     if(node.value == _value)
         return true;
     return false;
+}
+BST::Node*& BST :: get_root()
+{
+    return root;
 }
