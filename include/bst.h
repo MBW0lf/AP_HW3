@@ -5,6 +5,7 @@
 #include <memory> 
 #include <functional>
 #include <list>
+#include <iomanip>
 
 class BST
 {
@@ -16,7 +17,7 @@ public:
 	    Node();
 	    Node(const Node& node);
 
-        friend std::ostream& operator<<(std::ostream& os,BST::Node node);
+        friend std::ostream& operator<<(std::ostream& os,BST::Node &node);
         friend bool operator<(int _value,BST::Node node);
         friend bool operator<(BST::Node node,int _value);
         friend bool operator>(int _value,BST::Node node);
@@ -40,6 +41,7 @@ public:
     Node** find_parrent(int value);
     Node** find_successor(int value);
     bool delete_node(int value);
+    friend std::ostream& operator<<(std::ostream& os,BST bst);
 
     private:
         Node* root;
