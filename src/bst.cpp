@@ -90,3 +90,40 @@ BST::Node*& BST :: get_root()
 {
     return root;
 }
+bool BST :: add_node(int value)
+{
+    Node* root_1 {root};
+    if(root == nullptr)
+    {
+        root = new Node{value, nullptr, nullptr};
+    }
+    else
+    {
+        while(1)
+        {
+            if(root_1->value > value)
+            {
+                if(root_1->left == nullptr)
+                {
+                    root_1->left = new Node{value, nullptr, nullptr};
+                    break;
+                }
+                else
+                    root_1 = root_1->left; 
+            }
+            else if(root_1->value < value)
+            {
+                if(root_1->right == nullptr)
+                {
+                    root_1->right = new Node{value, nullptr, nullptr};
+                    break;
+                }
+                else
+                    root_1 = root_1->right; 
+            }
+            else
+                return false;
+        }
+    }
+    return true;
+}

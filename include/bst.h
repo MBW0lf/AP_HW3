@@ -26,7 +26,6 @@ public:
         friend bool operator>=(BST::Node node,int _value);
         friend bool operator==(int _value,BST::Node node);
         friend bool operator==(BST::Node node,int _value);
-
 	    int value;
 	    Node* left;
 	    Node* right;
@@ -41,7 +40,7 @@ public:
     Node** find_successor(int value);
     bool delete_node(int value);
 
-private:
-    Node* root;
+    private:
+        Node* root;
 };
 #endif //BST_H
