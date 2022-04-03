@@ -127,3 +127,18 @@ bool BST :: add_node(int value)
     }
     return true;
 }
+void BST::bfs(std::function<void(BST::Node*& node)> func) const
+{
+    std::list<Node*> queue;
+    queue.push_back(root);
+    while(!queue.empty())
+    {
+        auto node =  queue.front();
+        queue.pop_front();
+        func(node);
+        if(node->left)
+            queue.push_back(node->left);
+        if(node->right)
+            queue.push_back(node->right);
+    }
+}

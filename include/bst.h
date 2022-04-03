@@ -4,6 +4,7 @@
 #include <iostream> 
 #include <memory> 
 #include <functional>
+#include <list>
 
 class BST
 {
@@ -32,7 +33,7 @@ public:
     };
 
     Node*& get_root();
-    void bfs(std::function<void(Node*& node)> func);
+    void bfs(std::function<void(BST::Node*& node)> func) const;
     size_t length();
     bool add_node(int value);
     Node** find_node(int value);
