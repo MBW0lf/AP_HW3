@@ -1,23 +1,26 @@
 #include "bst.h"
-
+///////////////////////////////////////////////////////////////////////////////////////////////////
 BST :: Node :: Node(int _value, Node* _left, Node* _right)
 {
     value =  _value;
     left = _left;
     right = _right;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 BST :: Node :: Node()
 {
     value = 0;
     right = nullptr;
     left = nullptr;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 BST :: Node :: Node(const Node& node)
 {
     value = node.value;
     right = node.right;
     left = node.left;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 std::ostream& operator<<(std::ostream& os,BST::Node &node)
 {
     os << "adress of node: " << &node << std::endl;
@@ -26,70 +29,82 @@ std::ostream& operator<<(std::ostream& os,BST::Node &node)
     os << "value: " << node.value;
     return os;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 bool operator<(int _value,BST::Node node)
 {
     if(_value < node.value)
         return true;
     return false;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 bool operator<(BST::Node node,int _value)
 {
     if(node.value < _value)
         return true;
     return false;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 bool operator>(int _value,BST::Node node)
 {
     if(_value > node.value)
         return true;
     return false;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 bool operator>(BST::Node node,int _value)
 {
     if(node.value > _value)
         return true;
     return false;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 bool operator<=(int _value,BST::Node node)
 {
     if(_value <= node.value)
         return true;
     return false;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 bool operator<=(BST::Node node,int _value)
 {
     if(node.value <= _value)
         return true;
     return false;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 bool operator>=(int _value,BST::Node node)
 {
     if(_value >= node.value)
         return true;
     return false;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 bool operator>=(BST::Node node,int _value)
 {
     if(node.value >= _value)
         return true;
     return false;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 bool operator==(int _value,BST::Node node)
 {
     if(_value == node.value)
         return true;
     return false;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 bool operator==(BST::Node node,int _value)
 {
     if(node.value == _value)
         return true;
     return false;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 BST::Node*& BST :: get_root()
 {
     return root;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 bool BST :: add_node(int value)
 {
     Node* root_1 {root};
@@ -127,6 +142,7 @@ bool BST :: add_node(int value)
     }
     return true;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 void BST :: bfs(std::function<void(BST::Node*& node)> func) const
 {
     std::list<Node*> queue;
@@ -135,13 +151,17 @@ void BST :: bfs(std::function<void(BST::Node*& node)> func) const
     {
         auto node =  queue.front();
         queue.pop_front();
-        func(node);
-        if(node->left)
-            queue.push_back(node->left);
-        if(node->right)
-            queue.push_back(node->right);
+        if(node !=  nullptr)
+        {
+            func(node);
+            if(node->left)
+                queue.push_back(node->left);
+            if(node->right)
+                queue.push_back(node->right);
+        }
     }
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 size_t bst_length(BST::Node *node)
 {
     if (node == nullptr)
@@ -149,6 +169,7 @@ size_t bst_length(BST::Node *node)
     else
         return(bst_length(node->left) + 1 + bst_length(node->right));
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 size_t BST :: length()
 {
     if (root->left == nullptr and root->right == nullptr)
@@ -156,6 +177,7 @@ size_t BST :: length()
     else
         return(1 + bst_length(root->left) + bst_length(root->right));
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 std::ostream& operator<(std::ostream& os,BST::Node *node)
 {
     os << node;
@@ -172,6 +194,7 @@ std::ostream& operator<(std::ostream& os,BST::Node *node)
         std::cout < node->right;  
     return os;    
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 std::ostream& operator<<(std::ostream& os,BST bst)
 {
     os << "********************************************************************************" << std::endl;
@@ -187,7 +210,8 @@ std::ostream& operator<<(std::ostream& os,BST bst)
     os << "********************************************************************************" << std::endl;
     return os;
 }
-BST::Node** BST :: find_node(int value)
+///////////////////////////////////////////////////////////////////////////////////////////////////
+BST :: Node** BST :: find_node(int value)
 {
     Node** root_1 {&root};
     while(1)
@@ -210,7 +234,8 @@ BST::Node** BST :: find_node(int value)
             return root_1;
     }
 }
-BST::Node** BST :: find_parrent(int value)
+///////////////////////////////////////////////////////////////////////////////////////////////////
+BST :: Node** BST :: find_parrent(int value)
 {
     Node** root_1 {&root};
     while(1)
@@ -235,7 +260,8 @@ BST::Node** BST :: find_parrent(int value)
             return nullptr;
     }
 }
-BST::Node** BST :: find_successor(int value)
+///////////////////////////////////////////////////////////////////////////////////////////////////
+BST :: Node** BST :: find_successor(int value)
 {
     BST::Node** node{find_node(value)};
     if((*node)->left)
@@ -253,6 +279,7 @@ BST::Node** BST :: find_successor(int value)
     else
         return node;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
 bool BST :: delete_node(int value)
 {
     BST::Node** node{find_node(value)};
@@ -306,4 +333,60 @@ bool BST :: delete_node(int value)
     }
     else
         return false;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+BST::~BST()
+{
+    std::vector<Node*> nodes;
+    bfs([&nodes](BST::Node*& node){nodes.push_back(node);});
+    for(auto& node: nodes)
+ 	    delete node;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+BST::BST() : root{nullptr}
+{
+
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+BST::BST(BST &inpt_bst) : root{nullptr}
+{
+    inpt_bst.bfs([this](BST::Node *&node){this->add_node(node->value);});
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+BST::BST(BST &&inpt_bst)
+{
+    root = inpt_bst.root;
+    inpt_bst.root = nullptr;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+BST BST::operator=(BST &inpt_bst)
+{
+    inpt_bst.bfs([this](BST::Node *&node){this->add_node(node->value);});
+    return *this;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+BST BST::operator=(BST &&inpt_bst)
+{
+    root = inpt_bst.root;
+    inpt_bst.root = nullptr;
+    return *this;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+BST::BST(std::initializer_list<int> inpt) : root{nullptr}
+{
+    for(int i : inpt)
+        add_node(i);
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+BST BST::operator++(int inpt)
+{
+    auto bfs {*this};
+    this->bfs([this](BST::Node *&node){(node->value++);});
+    return bfs;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+BST BST::operator++()
+{
+    this->bfs([this](BST::Node *&node){(node->value++);});
+    return *this;
 }

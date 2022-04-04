@@ -32,6 +32,16 @@ public:
 	    Node* left;
 	    Node* right;
     };
+    
+    BST();
+    ~BST();
+    BST(BST &bst);
+    BST(BST &&bst);   
+    BST operator=(BST &bst);
+    BST operator=(BST &&bst);
+    BST operator++(int inpt);
+    BST operator++();
+    BST(std::initializer_list<int> inpt);
 
     Node*& get_root();
     void bfs(std::function<void(BST::Node*& node)> func) const;
