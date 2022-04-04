@@ -158,8 +158,8 @@ TEST(HW3Test, TEST12) {
     
     BST::Node** node{bst.find_node(10)};
     EXPECT_EQ((*node)->value, 10);
-    // EXPECT_EQ((*node)->left->value, 7);
-    // EXPECT_EQ((*node)->right->value, 15);
+    EXPECT_EQ((*node)->left->value, 7);
+    EXPECT_EQ((*node)->right->value, 15);
 }
 
 TEST(HW3Test, TEST13) {
@@ -208,7 +208,7 @@ TEST(HW3Test, TEST15) {
     EXPECT_EQ((*node)->left, nullptr);
     EXPECT_EQ((*node)->right, nullptr);
 }
-/*
+
 TEST(HW3Test, TEST16) {
     BST bst{};
     bst.add_node(25);
@@ -384,7 +384,7 @@ TEST(HW3Test, TEST23) {
     EXPECT_EQ(bst.get_root()->left->value, 10);
     EXPECT_EQ(bst.get_root()->left->right->right, nullptr);
 }
-
+/*
 TEST(HW3Test, TEST24) {
     BST bst{};
     bst.add_node(5);
